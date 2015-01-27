@@ -1,0 +1,94 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE>
+<html>
+<head runat="server">
+    <asp:ContentPlaceHolder ID="cphHead" runat="server">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <%--    <meta name="keywords" content="asp 3",'data driven design'/>--%>
+        <meta name="description" content="This is a second go around at Centriq" />
+    </asp:ContentPlaceHolder>
+
+    <title>Asp.NET sample site</title>
+    <link rel="stylesheet" href="/styles/styles.css" type="text/css" />
+</head>
+
+<body>
+    <form runat="server">
+        <div id="wrapper">
+            <div id="sitename">
+                <h1><a runat="server" href="~/Default.aspx">ADO.NET ASP 3</a></h1>
+                <%-- ADO stands for ActiveX Data Object --%>
+            </div>
+            <div id="header">
+                <h2>ASP 3 ADO.NET</h2>
+                <div class="tagline">
+                    <p>
+                        Admin & User
+                        <br />
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique neque at tellus interdum euismod. Quisque suscipit quam luctus quam elementum a molestie diam sollicitudin. Nam vehicula placerat mi, in mollis elit imperdiet in. Sed volutpat tincidunt sem at auctor
+                    </p>
+                </div>
+            </div>
+            <div id="body" class="clear">
+                <div id="sidebar" class="column-left">
+                    <ul>
+                        <li>
+                            <h4>Navigate</h4>
+                            <ul class="blocklist">
+                                <li runat="server"></li>
+                                <li runat="server" ><a runat="server" href="Default.aspx">Home</a></li>
+                                <li><a runat="server" href="~/dragAndDrop.aspx">Drag And Drop Tables</a></li>
+                                <li><a runat="server" href="#">Solutions</a></li>
+                                <li><a runat="server" href="#">Contact</a></li>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <h4>Members Only</h4>
+                            <ul>
+                                <%if (Page.User.IsInRole("admin"))// < the string is case sensitive
+                                  {%>
+                                <li><a runat="server" href="~/Secure/Admin/AdminHome.aspx">Admin Home</a></li>
+
+
+                                <% } %>
+
+                                <%if (!Request.IsAuthenticated)
+                                  {%>
+                                <li>
+                                    <asp:Login ID="Login1" runat="server"></asp:Login>
+                                </li>
+
+                                <%  }
+                                  else
+                                  { %>
+                                <li>
+                                    <asp:LoginName ID="LoginName1" runat="server" />
+                                </li>
+                                <li>
+                                    <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                                </li>
+
+                                <% }%>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="content" class="column-right">
+                    <asp:ContentPlaceHolder ID="cphMain" runat="server">
+                    </asp:ContentPlaceHolder>
+
+                </div>
+            </div>
+            <div id="footer" class="clear">
+                <p class="left">&copy; <%:DateTime.Now.Year%>  Nerdevelment.</p>
+                <!--The datetime.now is using "Inline Expression" this will allow me to not-->
+                <p class="right"><a href="http://zypopwebtemplates.com/">Designed by the cool kids at </a>by ZyPOP</p>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
